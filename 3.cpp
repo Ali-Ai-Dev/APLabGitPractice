@@ -1,136 +1,149 @@
 ﻿#include<stdio.h>
 #include<stdlib.h>
+#include<stdbool.h>
 #define MAX_SIZE 200
+
 int arr[MAX_SIZE];
 
-typedef struct alfa * alfaptr;
+typedef struct alfa* alfaptr;
 
 struct alfa {
-	long long x;
-	alfaptr next;
+    long long x;
+    alfaptr next;
 };
+
 alfaptr rear = NULL, front = NULL;
-void push(int x)
-{
-	alfaptr node;
-	node = (alfaptr)malloc(sizeof(struct alfa));
-	node->x = x;
-	if (!front)
-		front = node;
-	else {
-		rear->next = node;
-		rear = node;
-	}
+
+void push(int x) {
+    alfaptr node;
+    node = (alfaptr)malloc(sizeof(struct alfa));
+    node->x = x;
+    node->next = NULL;
+    if (!front)
+        front = node;
+    else {
+        rear->next = node;
+    }
+    rear = node;
 }
 
-void pop()
-{
-	alfaptr node;
-	if (!front)
-		printf("ERROR1");
-	else
-	{
-		node = front->next;
-		front = node;
-	}
-}
-void search(int x)
-{
-	alfaptr node = front;
-	int counter = 0;
-	while (node)
-		if (node->x == x)
-			printf("%d", counter);
-		else {
-			printf("ERROR2");
-			break;
-		}
-		node = node->next;
+void pop() {
+    alfaptr node;
+    if (!front)
+        printf("ERROR1");
+    else {
+        node = front->next;
+        free(front);
+        front = node;
+    }
 }
 
-void rpop() {//pop last element
-	alfaptr node = front;
-	while (node)
-		node = node->next;
-	free(rear);
-	rear = node;
+void search(int x) {
+    alfaptr node = front;
+    int counter = 0;
+    while (node) {
+        if (node->x == x) {
+            printf("%d", counter);
+            return;
+        } else {
+            printf("ERROR2");
+            break;
+        }
+        node = node->next;
+        counter++;
+    }
 }
 
-void set()
-{
-	alfaptr node = front;
-	for (int i = 0; i < MAX_SIZE && node; i++, node = node->next)
-		arr[i] = node->x;
+void rpop() { // pop last element
+    alfaptr node = front;
+    while (node && node->next)
+        node = node->next;
+    if (node == front) {
+        free(front);
+        front = NULL;
+        rear = NULL;
+    } else if (node) {
+        alfaptr temp = front;
+        while (temp->next != node)
+            temp = temp->next;
+        temp->next = NULL;
+        free(node);
+        rear = temp;
+    }
 }
 
-int size()
-{
-	alfaptr node = front;
-	int count;
-	while (node)
-		count++;node = node->next;
-	return count;
+void set() {
+    alfaptr node = front;
+    int i = 0;
+    while (node && i < MAX_SIZE) {
+        arr[i] = node->x;
+        node = node->next;
+        i++;
+    }
 }
 
-void show()
-{
-	if (!front) {
-		for (int i = 0; i < MAX_SIZE; i++)
-			printf("%d ", arr[i]);
-	}
-	else
-	{
-		printf("ERROR3");
-	}
+int size() {
+    alfaptr node = front;
+    int count = 0;
+    while (node) {
+        count++;
+        node = node->next;
+    }
+    return count;
 }
 
-int average()
-{
-
-	alfaptr node = front;
-	int sum = 0, count;
-	while (node) {
-		sum += node->x;
-		count++;
-		node = node->next;
-	}
-	return sum / count;
+void show() {
+    if (!front) {
+        for (int i = 0; i < MAX_SIZE; i++)
+            printf("%d ", arr[i]);
+    } else {
+        printf("ERROR3");
+    }
 }
 
-void main()
-{
-	int cmd;
-	long long int x;
-	while (true)
-	{
-		scanf("%d", &cmd);
-		switch (cmd)
-		{
-		case 1://push
-			scanf("%lld", &x);
-			push(x);
-			break;
-		case 2://pop
-			pop();
-			break;
-		case 3://rpop
-			rpop();
-			break;
-		case 4://search
-			scanf("%lld", &x);
-			search(x);
-			break;
-		case 5://set
-			set();
-			break;
-		case 6://show
-			show();
-			break;
-		case 7://size
-			printf("%d", size());
-			break;
-		case 10:
-			exit(0);
-		}
-	}
+int average() {
+    alfaptr node = front;
+    int sum = 0, count = 0;
+    while (node) {
+        sum += node->x;
+        count++;
+        node = node->next;
+    }
+    return sum / count;
+}
+
+int main() {
+    int cmd;
+    long long int x;
+    while (true) {
+        scanf("%d", &cmd);
+        switch (cmd) {
+            case 1: // push
+                scanf("%lld", &x);
+                push(x);
+                break;
+            case 2: // pop
+                pop();
+                break;
+            case 3: // rpop
+                rpop();
+                break;
+            case 4: // search
+                scanf("%lld", &x);
+                search(x);
+                break;
+            case 5: // set
+                set();
+                break;
+            case 6: // show
+                show();
+                break;
+            case 7: // size
+                printf("%d", size());
+                break;
+            case 10:
+                exit(0);
+        }
+    }
+    return 0;
 }
