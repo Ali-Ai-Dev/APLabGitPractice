@@ -8,3 +8,5 @@ int main()
 	printf("%d", *p);
 	return 0;
 }
+
+///This code was bug free
