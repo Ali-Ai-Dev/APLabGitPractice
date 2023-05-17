@@ -8,4 +8,4 @@ int main()
 	x[0] = 1;
 	printf("%d\n", a);
 	return 0;
-}
+}   //print 513
