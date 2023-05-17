@@ -1,4 +1,4 @@
-﻿#include<stdio.h>
+﻿#include <stdio.h>
 int main()
 {
 	int a;
@@ -9,3 +9,7 @@ int main()
 	printf("%d\n", a);
 	return 0;
 }
+
+// this code, sum's two numbers (a & x) binarical. for example 1000000000 (512) + 1 (1) = 1000000001 (513)
+
+// output : 513
