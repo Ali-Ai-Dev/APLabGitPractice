@@ -6,8 +6,6 @@ const char * f(const char **p) {
 int main() {
 	const char * str[] = { "Wish","You","Best",":D" };
 	printf("%c%c ", *f(str), *(f(str) + 1));
-	printf("%c%c%c%c\n", **str, *(*(str + 1) + 1), *((str + 2)[-1] + 1), **&*(&str[-1] + 1));
-
-
-	
+	printf("%c%c%c%c\n", **str, *(*(str + 1) + 1), *((str + 2)[-1] + 1), **&*(&str[-1] + 1)); // str[0][0] str[1][1] str[2-1][1] **str
+    // Be WooW
 }
