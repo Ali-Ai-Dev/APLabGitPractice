@@ -113,17 +113,17 @@ int average()
 		return 0;
 }
 
-void main()
+int main()
 {
 	int cmd;
 	long long int x;
 	while (true)
 	{
-		scanf_s("%d", &cmd);
+		scanf("%d", &cmd);
 		switch (cmd)
 		{
 		case 1://push
-			scanf_s("%lld", &x);
+			scanf("%lld", &x);
 			push(x);
 			break;
 		case 2://pop
@@ -133,7 +133,7 @@ void main()
 			rpop();
 			break;
 		case 4://search
-			scanf_s("%lld", &x);
+			scanf("%lld", &x);
 			search(x);
 			break;
 		case 5://set
@@ -149,4 +149,5 @@ void main()
 			exit(0);
 		}
 	}
+	return 0;
 }
