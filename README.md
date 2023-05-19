@@ -1,2 +1,3 @@
 # APLabGitPractice
- باید که کد های این مخزن رو بررسی و دیباگ کنید و کد اصلاح شده رو اینجا ارسال کنید
+Fixed  some of the  errors.
+
