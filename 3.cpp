@@ -10,13 +10,14 @@ struct alfa {
 	alfaptr next;
 };
 alfaptr rear = NULL, front = NULL;
-void push(int x)
-{
-	alfaptr node;
-	node = (alfaptr)malloc(sizeof(struct alfa));
-	node->x = x;
-	if (!front)
-		front = node;
+void push(int x) {
+    alfaptr node;
+    node = (alfaptr) malloc(sizeof(struct alfa));
+    node->x = x;
+    if (!front){
+        front = node;
+        rear = node;
+    }
 	else {
 		rear->next = node;
 		rear = node;
@@ -74,7 +75,7 @@ int size()
 
 void show()
 {
-	if (!front) {
+	if (front) {
 		for (int i = 0; i < MAX_SIZE; i++)
 			printf("%d ", arr[i]);
 	}
@@ -97,7 +98,7 @@ int average()
 	return sum / count;
 }
 
-void main()
+int main()
 {
 	int cmd;
 	long long int x;
