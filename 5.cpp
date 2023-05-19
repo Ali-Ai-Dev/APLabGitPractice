@@ -5,6 +5,6 @@ int main()
     int *ptr1 = arr;
     int *ptr2 = arr + 5;
     printf("%d\n", (*ptr2 - *ptr1));
-    printf("%c", (char)(*ptr2 - *ptr1));
+    printf("%c\n", (char)(*ptr2 - *ptr1));
     return 0;
 }
