@@ -5,6 +5,6 @@ int main()
 	int *p = arr;
 	++*p;
 	p += 2;
-	printf("%d", *p);
+	printf("%d\n", *p);
 	return 0;
 }
