@@ -1,4 +1,6 @@
-﻿#include<stdio.h>
+﻿#pragma warning (disable : 4996)
+#include <Windows.h>
+#include<stdio.h>
 #include<stdlib.h>
 #define MAX_SIZE 200
 int arr[MAX_SIZE];
@@ -15,8 +17,9 @@ void push(int x)
 	alfaptr node;
 	node = (alfaptr)malloc(sizeof(struct alfa));
 	node->x = x;
+	node->next = nullptr;
 	if (!front)
-		front = node;
+		front = rear = node;
 	else {
 		rear->next = node;
 		rear = node;
@@ -25,74 +28,86 @@ void push(int x)
 
 void pop()
 {
-	alfaptr node;
+	alfaptr temp;
 	if (!front)
 		printf("ERROR1");
 	else
 	{
-		node = front->next;
-		front = node;
+		temp = front;
+		front = front->next;
+		free(temp);
 	}
 }
 void search(int x)
 {
-	alfaptr node = front;
-	int counter = 0;
-	while (node)
-		if (node->x == x)
+	alfaptr temp = front;
+	int counter = 1;
+	while (temp)
+	{
+		if (temp->x == x)
+		{
 			printf("%d", counter);
-		else {
-			printf("ERROR2");
-			break;
+			return;
 		}
-		node = node->next;
+		counter++;
+		temp = temp->next;
+	}
+	printf("ERROR2");
+	Sleep(1300);
 }
 
-void rpop() {//pop last element
-	alfaptr node = front;
-	while (node)
-		node = node->next;
+void rpop() {
+	alfaptr temp = front;
+	while (temp->next->next)
+		temp = temp->next;
 	free(rear);
-	rear = node;
+	rear = temp;
+	rear->next = nullptr;
 }
 
 void set()
 {
-	alfaptr node = front;
-	for (int i = 0; i < MAX_SIZE && node; i++, node = node->next)
-		arr[i] = node->x;
+	alfaptr temp = front;
+	for (int i = 0; i < MAX_SIZE && temp; i++, temp = temp->next)
+		arr[i] = temp->x;
 }
 
 int size()
 {
-	alfaptr node = front;
-	int count;
-	while (node)
-		count++;node = node->next;
+	alfaptr temp = front;
+	int count = 0;
+	while (temp)
+	{
+		count++;
+		temp = temp->next;
+	}
 	return count;
 }
 
 void show()
 {
-	if (!front) {
-		for (int i = 0; i < MAX_SIZE; i++)
+	set();
+	if (front)
+	{
+		for (int i = 0; i < MAX_SIZE && arr[i] != 0; i++)
 			printf("%d ", arr[i]);
 	}
 	else
 	{
 		printf("ERROR3");
+	
 	}
 }
 
 int average()
 {
 
-	alfaptr node = front;
-	int sum = 0, count;
-	while (node) {
-		sum += node->x;
+	alfaptr temp = front;
+	int sum = 0, count = 0;
+	while (temp) {
+		sum += temp->x;
 		count++;
-		node = node->next;
+		temp = temp->next;
 	}
 	return sum / count;
 }
